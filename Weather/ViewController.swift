@@ -107,6 +107,34 @@ extension ViewController {
         humidityLabel.text = "Độ ẩm: \(String(humidity))"
         windLabel.text = "Gió: \(String(wind))"
         
+        if let lastIcon = weatherData.weather.last?.icon {
+            loadImage(from: getWeatherIcon(icon: lastIcon), imageView: imageViewWeather)
+        }
+    }
+    
+    // load image icon
+    func loadImage(from url: String, imageView: UIImageView) {
+        guard let url = URL(string: url) else {
+            print("Invalid URL")
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error loading image: \(error)")
+                return
+            }
+            
+            guard let data = data, let image = UIImage(data: data) else {
+                print("Failed to load image data")
+                return
+            }
+            
+            DispatchQueue.main.async {
+                imageView.image = image
+            }
+        }
+        task.resume()
     }
     
     // formatter hour

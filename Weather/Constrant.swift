@@ -19,3 +19,9 @@ func getWeatherByCoordinates(lat: Double, lon: Double) -> String {
 func getWeatherByCityName(cityName: String) -> String {
     return "\(baseUrl)q=\(cityName)&unit=metric&lang=vi&appid=\(appID)"
 }
+
+//MARK: - Lấy ảnh
+func getWeatherIcon(icon id: String) -> String {
+    return "https://openweathermap.org/img/wn/\(id)@2x.png"
+}
+//https://openweathermap.org/img/wn/04d@2x.png
